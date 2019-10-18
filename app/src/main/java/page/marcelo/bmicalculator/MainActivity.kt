@@ -2,54 +2,43 @@ package page.marcelo.bmicalculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private val calculateButton = findViewById<Button>(R.id.calculate_btn)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initListeners()
+    }
 
-        calculateButton.setOnClickListener{
+    private fun initListeners() {
+        calculate_btn.setOnClickListener{
             onClick()
         }
     }
 
     private fun onClick() {
-        val weightEditView = findViewById<EditText>(R.id.weight_et)
-        val weight = weightEditView.text.toString().toFloat()
-        val heightEditView = findViewById<EditText>(R.id.height_et)
-        val height = heightEditView.text.toString().toFloat()
+        val weight = weight_et.text.toString().toFloat()
+        val height = height_et.text.toString().toFloat()
         val bmi = calculate(weight, height)
         val result = interpretate(bmi)
-        val resultTextView = findViewById<TextView>(R.id.result_tv)
-        resultTextView.setText(result)
+        result_tv.text = result
     }
 
-    private fun calculate(weight: Float, height: Float) = weight / ( height * height)
+    private fun calculate(weight: Float, height: Float) = weight / ((height / 100) * (height / 100))
 
     private fun interpretate(BMI: Float): String {
-        if (BMI < 16) {
-            return "Severe thinness"
-        } else if (BMI > 16 && BMI < 17) {
-            return "Moderate thinness"
-        } else if (BMI > 17 && BMI < 18.5) {
-            return "Mild thinness"
-        } else if (BMI > 18.5 && BMI < 25) {
-            return "Normal"
-        } else if (BMI > 25 && BMI < 30) {
-            return "Overweight"
-        } else if (BMI > 30 && BMI < 35) {
-            return "Obese Class I"
-        } else if (BMI > 35 && BMI < 40) {
-            return "Obese Class II"
-        } else if (BMI > 40) {
-            return "Obese Class III"
-        } else {
-            return ""
+        val diagnostic = when (BMI) {
+            in 0f..16f -> "Severe thinness"
+            in 16f..17f -> "Moderate thinness"
+            in 17f..18.5f -> "Mild thinness"
+            in 18.5f..25f -> "Normal"
+            in 25f..30f -> "Overweight"
+            in 30f..35f -> "Obese Class I"
+            in 35f..40f -> "Obese Class II"
+            else -> "Obese Class III"
         }
+
+        return diagnostic
     }
 }
