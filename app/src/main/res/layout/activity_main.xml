@@ -42,4 +42,26 @@
         android:inputType="numberDecimal"
         android:textAlignment="center"
         ><requestFocus></requestFocus></EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="30dp"
+        android:text="@string/height"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold|italic"
+        android:typeface="monospace"
+        />
+
+    <EditText
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Kg"
+        android:ems="10"
+        android:fadingEdgeLength="10dp"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        ><requestFocus /></EditText>
 </LinearLayout>
